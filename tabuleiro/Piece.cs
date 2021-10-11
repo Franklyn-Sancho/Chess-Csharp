@@ -18,5 +18,17 @@ namespace tabuleiro {
         public void incrementMoviment() {
             qtMoviments++;
         }
+
+        /*
+            A abtração acontece porque essa classe é genérica. Porém, como sabemos, um jogo 
+            de xadrez tem mais de um tipo de peça e cada uma com sua particularidade e movimentos possíveis. 
+            Nesta classe só teremos métodos que funcionam para todas as pessoas. Por exemplo: Todas as peças
+            se movimentam e ter cor, então podemos implementar aqui. Já a TORRE, diferente do BISPO, só se 
+            movimenta na vertical e horizontal. Então vamos implementar esse método na classe "TORRE" (que 
+            é uma herança da classe peça).
+        */
+        public abstract bool[,] movimentosPossiveis() { //classe abstrata
+
+        }
     }
 }
