@@ -17,6 +17,7 @@ namespace tabuleiro {
 
         public void putPiece(piece p, position pos) {
             pieces[pos.linha, pos.coluna] = p;
+            p.position = pos;
         }
     }
 }

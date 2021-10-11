@@ -1,14 +1,18 @@
 using tabuleiro;
 
-namespace xadrez {
-    class Rei : Piece{
-        
-        public Rei(Tabuleiro tab, Color color) : base(tab, color) {
-            
+namespace xadrez
+{
+    class Rei : Piece
+    {
+
+        public Rei(Tabuleiro tab, Color color) : base(tab, color)
+        {
+
         }
-        public override string ToString() {
-                return "R";
-            }
+        public override string ToString()
+        {
+            return "R";
+        }
 
     }
 }
