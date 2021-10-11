@@ -11,7 +11,7 @@ namespace xadrez {
             this.linha = linha;
         }
 
-        public Position toPosition() {
+        public Position toPosition() { //convertendo a posição do array do c# para o tabuleiro de xadrez - (0, 0) = (a, 1)
             return new Position(8 - linha, coluna - 'a');
         }
 
