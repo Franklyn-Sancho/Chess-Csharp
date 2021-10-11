@@ -1,14 +1,18 @@
 using System;
 using tabuleiro;
+using xadrez;
 
 namespace xadrez_controle {
     class Program {
-        static void MAIN(string[] args) {
-            Position P;
+        static void Main(string[] args) {
+            
+            try {
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-            P = new Position(3, 4);
-
-            Console.WriteLine("Position: " + P);
+                Tela.imprimirTabuleiro(partida.tab);
+            } catch(TabuleiroException e) {
+                Console.WriteLine(e.message);
+            }
             Console.ReadLine();
         }
     }
