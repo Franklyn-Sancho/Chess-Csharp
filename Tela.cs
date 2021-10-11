@@ -1,4 +1,6 @@
+using System;
 using tabuleiro;
+using xadrez;
 
 namespace xadrez_console
 {
@@ -28,6 +30,13 @@ namespace xadrez_console
             }
             //As colunas do tabuleiro são letras de A até H
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static PositionChess lerPosicaoXadrez() {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new PositionChess(coluna, linha);
         }
 
         //  função responsável por imprimir as peças 

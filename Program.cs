@@ -9,7 +9,21 @@ namespace xadrez_controle {
             try {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                Tela.imprimirTabuleiro(partida.tab);
+                while(!partida.terminada) {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab);
+
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Position origem = Tela.lerPosicaoXadrez().toPosition();
+                    Console.Write("Destino: ");
+                    Position destino = Tela.lerPosicaoXadrez().toPosition();
+
+                    partida.ExecutaMovimento(origem, destino);
+                    
+                }
+
+                
             } catch(TabuleiroException e) {
                 Console.WriteLine(e.message);
             }
