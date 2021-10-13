@@ -19,6 +19,19 @@ namespace tabuleiro {
             qtMoviments++;
         }
 
+        //esse método verifica se há movimentos possíveis, caso não haja, dará erro
+        public bool existeMovimentosPossiveis() {
+            bool[,] mat = movimentosPossiveis();
+            for(int i=0; i < tab.linhas; i++) {
+                for(int j=0; j < tab.colunas; j++) {
+                    if(mat[i, j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         /*
             A abtração acontece porque essa classe é genérica. Porém, como sabemos, um jogo 
             de xadrez tem mais de um tipo de peça e cada uma com sua particularidade e movimentos possíveis. 

@@ -2,29 +2,56 @@ using System;
 using tabuleiro;
 using xadrez;
 
-namespace xadrez_controle {
-    class Program {
-        static void Main(string[] args) {
-            
-            try {
+namespace xadrez_controle
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            try
+            {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                while(!partida.terminada) {
-                    Console.Clear();
-                    Tela.imprimirTabuleiro(partida.tab);
+                try
+                {
+                    while (!partida.terminada)
+                    {
+                        Console.Clear();
+                        Tela.imprimirTabuleiro(partida.tab);
+                        Console.WriteLine();
+                        Console.WriteLine("turno: " + partida.turno);
+                        Console.WriteLine("aguardando jodaga: " + partida.jogadorAtual);
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Position origem = Tela.lerPosicaoXadrez().toPosition();
-                    Console.Write("Destino: ");
-                    Position destino = Tela.lerPosicaoXadrez().toPosition();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Position origem = Tela.lerPosicaoXadrez().toPosition();
+                        partida.validarPosicaoDeOrigem(origem);
 
-                    partida.ExecutaMovimento(origem, destino);
-                    
+                        bool[,] posicoesPossiveis = partida.tab.piece(origem).movimentosPossiveis();
+
+                        Console.Clear();
+                        TypeLoadException.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Position destino = Tela.lerPosicaoXadrez().toPosition();
+
+                        partida.realizaJogada(origem, destino);
+
+                    }
+                }
+                catch (TabuleiroException e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
                 }
 
-                
-            } catch(TabuleiroException e) {
+
+
+            }
+            catch (TabuleiroException e)
+            {
                 Console.WriteLine(e.message);
             }
             Console.ReadLine();
