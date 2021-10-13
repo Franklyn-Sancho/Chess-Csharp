@@ -20,15 +20,17 @@ namespace tabuleiro {
         }
 
         /*
-            A abtração acontece porque essa classe é genérica. Porém, como sabemos, um jogo 
-            de xadrez tem mais de um tipo de peça e cada uma com sua particularidade e movimentos possíveis. 
-            Nesta classe só teremos métodos que funcionam para todas as peças. Por exemplo: Todas as peças
-            se movimentam, tem cor e uma posição, então podemos implementar aqui. Já a TORRE, diferente do BISPO, 
-            só se movimenta na vertical e horizontal. Então vamos implementar esse método na classe "TORRE" (que 
-            é uma herança da classe peça).
-        */
-        public abstract bool[,] movimentosPossiveis() { //classe abstrata
 
-        }
+            class peças ->
+            
+            A abtração acontece porque essa classe é abstrata. Como sabemos, um jogo 
+            de xadrez tem mais de um tipo de peça e cada tem sua particularidade, regra e movimento.
+            Nesta classe só teremos métodos e características que funcionam para todas as peças. 
+            Por exemplo: Todas as peças se movimentam, tem cor e uma posição, então devemos implementar aqui 
+            (imagina que essa classe seja o universo de todas as peças). A classe "TORRE", diferente
+            do classe "BISPO", só se movimenta na horizontal e vertical. Então a criar a classe "TORRE" e "BISPO", 
+            que seria uma herança da classe peças, podemos subscrever esse método dentro da realidade de cada delas.
+        */
+        public abstract bool[,] movimentosPossiveis();
     }
 }
