@@ -28,7 +28,7 @@ namespace xadrez_controle
                         Position origem = Tela.lerPosicaoXadrez().toPosition();
                         partida.validarPosicaoDeOrigem(origem);
 
-                        bool[,] posicoesPossiveis = partida.tab.piece(origem).movimentosPossiveis();
+                        bool[,] posicoesPossiveis = partida.tab.pecas(origem).movimentosPossiveis();
 
                         Console.Clear();
                         TypeLoadException.imprimirTabuleiro(partida.tab, posicoesPossiveis);

@@ -1,22 +1,22 @@
 namespace tabuleiro {
     //Classe genérica das peças
-    class Piece {
+    class Pecas {
 
-        public Position position {get; set;} //vai ter uma posição
-        public Color color {get; protected set;} //uma cor
+        public Posicao posicao {get; set;} //vai ter uma posição
+        public Cor cor {get; protected set;} //uma cor
 
-        public int qtMoviments {get;protected set;} //quantidade de movimentos
+        public int qtMovimentos {get;protected set;} //quantidade de movimentos
         public Tabuleiro tab {get; protected set;} //E estará num tabuleiro
 
-        public Piece(Tabuleiro tabuleiro, Color color) { //Construtor das peças
-            this.position = null;
+        public Pecas(Tabuleiro tabuleiro, Cor cor) { //Construtor das peças
+            this.posicao = null;
             this.tab = tab;
-            this.color = color;
-            this.qtMoviments = 0;
+            this.cor = cor;
+            this.qtMovimentos = 0;
         }
 
-        public void incrementMoviment() {
-            qtMoviments++;
+        public void incrementarMovimentos() {
+            qtMovimentos++;
         }
 
         //esse método verifica se há movimentos possíveis, caso não haja, dará erro

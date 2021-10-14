@@ -7,51 +7,51 @@ namespace xadrez {
 
         public Tabuleiro tab{get; private set;}
         public int turno{get; private set;}
-        public Color jogadorAtual{get; private set;}
+        public Cor jogadorAtual{get; private set;}
         public bool terminada {get; private set;}
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8,8); //recebe tabuleiro que tem uma matriz de 8 por 8
             turno = 1; //turno começa no primeiro
-            jogadorAtual = Color.branca; //O jogo sempre começa pelas peças brancas
+            jogadorAtual = Cor.branca; //O jogo sempre começa pelas peças brancas
             terminada = false;
         }
 
         //lógica da troca de turno entre jogadores
-        public void realizaJogada(position origem, Position destino) {
+        public void realizaJogada(Posicao origem, Posicao destino) {
             ExecutaMovimento(origem, destino);
             turno++;
             mudaJogador();
         }
 
         //método que retorna as exceções
-        public bool validarPosicaoDeOrigem(Position pos) {
-            if(tab.piece(pos) == null) {
+        public bool validarPosicaoDeOrigem(Posicao pos) {
+            if(tab.peca(pos) == null) {
                 throw new TabuleiroException("Não existe peça na posição de origem escolhida");
             }
-            if(jogadorAtual != tab.piece(pos).cor) {
+            if(jogadorAtual != tab.peca(pos).cor) {
                 throw new TabuleiroException("A peça de origem escolhida não é a sua");
             }
-            if(!tab.piece(pos).existeMovimentosPossiveis()) {
+            if(!tab.peca(pos).existeMovimentosPossiveis()) {
                 throw new TabuleiroException("Não há movimentos possíveis para essa peça");
             }
         }
 
         //lógica que muda os jogadores
         private void mudaJogador() {
-            if(jogadorAtual == Color.Branca) {  
-                jogadorAtual - Color.Preta;
+            if(jogadorAtual == Cor.Branca) {  
+                jogadorAtual - Cor.Preta;
 
             } else {
-                jogadorAtual = Color.branca;
+                jogadorAtual = Cor.branca;
             }
         }
 
-        public void ExecutaMovimento(Position origem, Position destino) { //função que executa o movimento
-            Piece p = tab.removePiece(origem);
-            p.incrementMoviment();
-            Piece capturedPiece = tab.removePiece(destino);
-            tab.putPiece(p, destino);
+        public void ExecutaMovimento(Posicao origem, Posicao destino) { //função que executa o movimento
+            Piece p = tab.removePeca(origem);
+            p.incrementarMovimentos();
+            Piece pecaCapturada = tab.removePeca(destino);
+            tab.colocarPeca(p, destino);
 
         }
     }

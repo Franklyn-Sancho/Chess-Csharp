@@ -1,10 +1,10 @@
 namespace tabuleiro {
     //classe genéricas de posição das peças
-    class Position {
+    class Posicao {
         public int linha {get; set;} //vai ter linhas
         public int coluna {get; set;} //colunas
 
-        public Position(int linha, int coluna) { //construtor da posição, recebendo o this
+        public Posicao(int linha, int coluna) { //construtor da posição, recebendo o this
             this.linha = linha;
             this.coluna = coluna;
         }

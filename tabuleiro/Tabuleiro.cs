@@ -4,7 +4,7 @@ namespace tabuleiro {
 
         public int linhas {get; set;}
         public int colunas {get; set;}
-        private piece[,] pieces;
+        private peca[,] pecas;
 
         public Tabuleiro(int linhas, int colunas) { //construtor do tabuleiro
             this.linhas = linhas;
@@ -12,34 +12,34 @@ namespace tabuleiro {
             pieces = new piece[linhas, colunas];
         }
 
-        public Piece piece(int linha, int coluna) { //As peças recebem as posições da matriz linha e coluna
-            return pieces[linha, coluna];
+        public Pecas pecas(int linha, int coluna) { //As peças recebem as posições da matriz linha e coluna
+            return pecas[linha, coluna];
         }
 
-        public Piece piece(Position pos) {
+        public Pecas pecas(Position pos) {
             return pieces[pos.linha, pos.coluna];
         }
 
-        public bool existPiece(Position pos) {
-            acceptPosition(pos);
-            return piece(pos) != null;
+        public bool existePeca(Posicao pos) {
+            posicaoAceita(pos);
+            return peca(pos) != null;
         }
 
-        public void putPiece(piece p, position pos) { //método para colocar uma peça
-            if(existPiece(pos)) { //exceção caso já exista uma peça na posição escolhida
+        public void colocarPeca(peca p, posicao pos) { //método para colocar uma peça
+            if(existePeca(pos)) { //exceção caso já exista uma peça na posição escolhida
                 throw new TabuleiroException("Já existe uma peça nessa posição"); 
             }
-            pieces[pos.linha, pos.coluna] = p;
-            p.position = pos;
+            pecas[pos.linha, pos.coluna] = p;
+            p.posicao = pos;
         }
 
-        public Piece removePiece(Position pos) { //método para retirar a peça
-            if(piece(pos) == null) {
+        public Pecas removePeca(Posicao pos) { //método para retirar a peça
+            if(peca(pos) == null) {
                 return null;
             }
-            Piece aux = piece(pos);
-            aux.position = null;
-            pieces[pos.linha, pos.coluna] = null;
+            peca aux = peca(pos);
+            aux.posicao = null;
+            pecas[pos.linha, pos.coluna] = null;
             return aux;
         }
 
@@ -50,7 +50,7 @@ namespace tabuleiro {
             Não existe linha ou coluna "-1", por exemplo. E se o número total de linhas for 8, 
             não temos como colocar a peça na linha 9, por exemplo. Pois não existe.
         */
-        public bool validPosition(Position pos) { //
+        public bool posicaoValida(Posicao pos) { //
             if(pos.linha <0 || pos.linha >=linhas || pos.coluna<0 || pos.coluna>=colunas) {
                 return false;
             }
@@ -58,8 +58,8 @@ namespace tabuleiro {
         }
 
         //Método de exceção para posição inválida. Se um dos casos acima for verdadeiro, teremos um retorno de erro
-        public void acceptPosition(Position pos) {
-            if(!validPosition(pos)) {
+        public void posicaoAceita(Posicao pos) {
+            if(!posicaoValida(pos)) {
                 throw new TabuleiroException("Posição Inválida!");
             }
         }
