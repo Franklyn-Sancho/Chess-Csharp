@@ -32,6 +32,10 @@ namespace tabuleiro {
             return false;
         }
 
+        public bool podeMoverPara(posicao pos) {
+            return movimentosPossiveis()[pos.linha, pos.coluna];
+        }
+
         /*
 
             class peças ->
