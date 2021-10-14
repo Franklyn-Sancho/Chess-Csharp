@@ -22,6 +22,15 @@ namespace xadrez
             return p == null || p.color !=this.color; //
         }
 
+
+        /*
+
+            class rei => 
+
+            Primeiro devemos lembrar que a classe Rei é uma herança da classe Peças. Lembra que criamos esse
+            mesmo método lá, só que como um método abstrato? Então, aqui na classe "Rei" também podemos chama-lo,
+            só que com o modificador override, que tem o poder de subscrever os métodos dentro das regras filha.
+        */
         public override bool[,] movimentosPossiveis() { //classe abstrata
             bool[,] mat = new bool[tab.linhas, tab.colunas];
 

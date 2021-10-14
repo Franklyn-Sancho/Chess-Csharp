@@ -21,7 +21,7 @@ namespace xadrez_controle
                         Tela.imprimirTabuleiro(partida.tab);
                         Console.WriteLine();
                         Console.WriteLine("turno: " + partida.turno);
-                        Console.WriteLine("aguardando jodaga: " + partida.jogadorAtual);
+                        Console.WriteLine("aguardando jogada: " + partida.jogadorAtual);
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
@@ -37,7 +37,17 @@ namespace xadrez_controle
                         Console.Write("Destino: ");
                         Position destino = Tela.lerPosicaoXadrez().toPosition();
 
-                        partida.realizaJogada(origem, destino);
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Position origem = Tela.lerPosicaoXadrez().toPosition();
+
+                    bool[,] posicoesPossiveis = partida.tab.piece(origem).movimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+                    Console.Write("Destino: ");
+                    Position destino = Tela.lerPosicaoXadrez().toPosition();
 
                     }
                 }
