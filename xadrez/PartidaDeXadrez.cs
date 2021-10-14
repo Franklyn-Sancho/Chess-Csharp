@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using tabuleiro;
 using xadrez;
 
@@ -9,12 +9,17 @@ namespace xadrez {
         public int turno{get; private set;}
         public Cor jogadorAtual{get; private set;}
         public bool terminada {get; private set;}
+        private HashSet<Peca> pecas;
+        private HashSet<Peca> capturadas;
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8,8); //recebe tabuleiro que tem uma matriz de 8 por 8
             turno = 1; //turno começa no primeiro
             jogadorAtual = Cor.branca; //O jogo sempre começa pelas peças brancas
             terminada = false;
+            pecas = new HashSet<Peca>();
+            capturadas = new HashSet<Peca>();
+            colocarPecas();
         }
 
         //lógica da troca de turno entre jogadores
@@ -53,11 +58,44 @@ namespace xadrez {
             }
         }
 
+        public void colocarNovaPeca(char coluna, int linha, Pecas peca) {
+            tab.colocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
+            pecas.Add(peca);
+        }
+
+        private void colocarPecas() {
+            colocarNovaPeca('c', 1, new Torre(tab, Cor.Branca));
+        }
+
+        public HashSet<Peca> pecasCapturadas(Cor cor) {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach(Peca x in capturadas) {
+                if(x.cor == cor) {
+                    aux.Add(x);
+                }
+            }
+            return aux;
+        }
+
+        public HashSet<Peca> pecasEmJogo(Cor cor) {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach(Peca x in pecas) {
+                if(x.cor == cor) {
+                    aux.Add(x);
+                }
+            }
+            aux.ExceptWith(pecasCapturadas(cor));
+            return aux;
+        }
+
         public void ExecutaMovimento(Posicao origem, Posicao destino) { //função que executa o movimento
             Piece p = tab.removePeca(origem);
             p.incrementarMovimentos();
             Piece pecaCapturada = tab.removePeca(destino);
             tab.colocarPeca(p, destino);
+            if(pecaCapturada != null) {
+                capturadas.Add(pecaCapturada);
+            }
 
         }
     }
