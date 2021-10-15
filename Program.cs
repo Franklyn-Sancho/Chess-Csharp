@@ -18,10 +18,7 @@ namespace xadrez_controle
                     while (!partida.terminada)
                     {
                         Console.Clear();
-                        Tela.imprimirTabuleiro(partida.tab);
-                        Console.WriteLine();
-                        Console.WriteLine("turno: " + partida.turno);
-                        Console.WriteLine("aguardando jogada: " + partida.jogadorAtual);
+                        Tela.iprimirPartida(partida);
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
@@ -59,3 +56,5 @@ namespace xadrez_controle
         }
     }
 }
+
+//Recomeçar na aula 168 - implementando um controle de peãs capturadas

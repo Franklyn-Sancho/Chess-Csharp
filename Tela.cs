@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using tabuleiro;
 using xadrez;
 
@@ -7,6 +8,39 @@ namespace xadrez_console
     //inicio da classe tela
     class Tela
     {
+
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("turno: " + partida.turno);
+            Console.WriteLine("aguardando jogada: " + partida.jogadorAtual);
+        }
+
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida) {
+            Console.WriteLine("Peças Capturadas");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.WriteLine("Pretas: ");
+            //mostra o conjunto com a cor das peças capturadas;
+            ConsoleColor aux = Console.ForegroundColor;
+            ConsoleColor.ForegroundColor = ConsoleColor.Yellow; 
+            imprimirConjunto(partida.pecasCapturadas(Cor.Pretas));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void imprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+            foreach(Pecas x in conjunto) {
+                Console.Write(x + " ");
+            }
+            Console.WriteLine("]");
+        }
+
         //Função que constrói o tabuleiro na linha de comando
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
@@ -33,10 +67,14 @@ namespace xadrez_console
             for (int i = 0; i < tab.linhas; i++)
             {
                 Console.Write(8 - i + " ");
-                for (int j = 0; j < tab.colunas; j++) {
-                    if(posicoesPossiveis[i, j]) {
+                for (int j = 0; j < tab.colunas; j++)
+                {
+                    if (posicoesPossiveis[i, j])
+                    {
                         Console.BackgroundColor = fundoAlterado;
-                    } else {
+                    }
+                    else
+                    {
                         Console.BackgroundColor = fundoOriginal;
                     }
                     imprimirPeca(tab.piece(i, j));
