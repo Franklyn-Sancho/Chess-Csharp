@@ -19,6 +19,10 @@ namespace tabuleiro {
             qtMovimentos++;
         }
 
+        public voidd descrementarMovimentos() {
+            qtMovimentos--;
+        }
+
         //esse método verifica se há movimentos possíveis, caso não haja, dará erro
         public bool existeMovimentosPossiveis() {
             bool[,] mat = movimentosPossiveis();
