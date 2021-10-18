@@ -25,9 +25,9 @@ namespace xadrez {
         }
 
         public Pecas ExecutaMovimento(Posicao origem, Posicao destino) { //função que executa o movimento
-            Piece p = tab.removePeca(origem);
+            Pecas p = tab.removePeca(origem);
             p.incrementarMovimentos();
-            Piece pecaCapturada = tab.removePeca(destino);
+            Pecas pecaCapturada = tab.removePeca(destino);
             tab.colocarPeca(p, destino);
             if(pecaCapturada != null) {
                 capturadas.Add(pecaCapturada);
@@ -48,7 +48,7 @@ namespace xadrez {
 
         //lógica da troca de turno entre jogadores
         public void realizaJogada(Posicao origem, Posicao destino) {
-            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+            Pecas pecaCapturada = ExecutaMovimento(origem, destino);
 
             if(estaEmXeque(jogadorAtual)) {
                 desfazMovimento(origem, destino, pecaCapturada);
@@ -59,8 +59,12 @@ namespace xadrez {
             }
             xeque = false;
 
-            turno++;
-            mudaJogador();
+            if(testeXequemate(adversaria(jogadorAtual))) {
+                terminada = true;
+            } else {
+                turno++;
+                mudaJogador();
+            }
         }
 
         //método que retorna as exceções
@@ -85,7 +89,7 @@ namespace xadrez {
         //lógica que muda os jogadores
         private void mudaJogador() {
             if(jogadorAtual == Cor.Branca) {  
-                jogadorAtual - Cor.Preta;
+                jogadorAtual = Cor.Preta;
 
             } else {
                 jogadorAtual = Cor.branca;
@@ -121,6 +125,31 @@ namespace xadrez {
                 }
             }
             return false;
+        }
+
+        //Método para o xeque mate
+        public bool testeXequemate(Cor cor) {
+            if(!estaEmXeque(cor)) {
+                return false;
+            }
+            foreach (Pecas x in pecasEmJogo(cor)) {
+                bool[,] mat = x.movimentosPossiveis();
+                for (int i = 0; i < tab.linhas; i++) {
+                    for(int j = 0; j < tab.colunas; j++) {
+                        if (mat[i,j]) {
+                            Posicao origem = x.posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Pecas pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, pecaCapturada);
+                            if(!testeXeque) {
+                                return false;
+                            } 
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void colocarNovaPeca(char coluna, int linha, Pecas peca) {
