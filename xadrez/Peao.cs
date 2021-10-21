@@ -12,7 +12,7 @@ namespace xadrez
         }
         public override string ToString()
         {
-            return "R";
+            return "P";
         }
 
         //O método verifica duas coisas:
