@@ -19,7 +19,7 @@ namespace tabuleiro {
             qtMovimentos++;
         }
 
-        public voidd descrementarMovimentos() {
+        public voidd decrementarMovimentos() {
             qtMovimentos--;
         }
 

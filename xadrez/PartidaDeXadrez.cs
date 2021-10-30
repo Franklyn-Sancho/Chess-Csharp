@@ -33,6 +33,27 @@ namespace xadrez {
             if(pecaCapturada != null) { 
                 capturadas.Add(pecaCapturada);
             }
+
+            //Jogada especial roque pequeno
+
+            if(p is Rei && destino.coluna == origem.coluna + 2) {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna + 1);
+                Pecas T = tab.retirarPeca(origemT);
+                T.incrementarQtMovimentos();
+                tab.colocarPeca(T, destinoT);
+            }
+
+            //Jogada especial roque grande
+
+            if(p is Rei && destino.coluna == origem.coluna + 2) {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna - 4);
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna - 1);
+                Pecas T = tab.retirarPeca(origemT);
+                T.incrementarQtMovimentos();
+                tab.colocarPeca(T, destinoT);
+            }
+
             return pecasCapturadas;
 
         }
@@ -45,6 +66,28 @@ namespace xadrez {
                 tab.colocarPeca(pecasCapturadas, destino);
                 capturadas.Remove(pecaCapturada);
             }
+
+            //Jogada especial roque pequeno
+
+            if(p is Rei && destino.coluna == origem.coluna + 2) {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna + 3);
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna + 1);
+                Pecas T = tab.retirarPeca(destinoT);
+                T.decrementarMovimentos();
+                tab.colocarPeca(T, destinoT);
+            }
+
+            //Jogada especial roque grande
+
+            if(p is Rei && destino.coluna == origem.coluna - 2) {
+                Posicao origemT = new Posicao(origem.linha, origem.coluna - 4);
+                Posicao destinoT = new Posicao(origem.linha, origem.coluna - 1);
+                Pecas T = tab.retirarPeca(destin);
+                T.decrementarMovimentos();
+                tab.colocarPeca(T, origemT);
+            }
+
+
             tab.colocarPeca(p, origem);
         }
 
