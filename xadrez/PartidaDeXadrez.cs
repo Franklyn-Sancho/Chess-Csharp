@@ -5,37 +5,39 @@ using xadrez;
 namespace xadrez {
     class PartidaDeXadrez {
 
-        public Tabuleiro tab{get; private set;}
+        public Tabuleiro tab{get; private set;} //publico, apenas com o ométodo set privado
         public int turno{get; private set;}
         public Cor jogadorAtual{get; private set;}
         public bool terminada {get; private set;}
-        private HashSet<Peca> pecas;
-        private HashSet<Peca> capturadas;
+        private HashSet<Peca> pecas; //conjunto de peças
+        private HashSet<Peca> capturadas; //conjunto de peças capturadas
         public bool xeque{get; private set;}
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8,8); //recebe tabuleiro que tem uma matriz de 8 por 8
             turno = 1; //turno começa no primeiro
             jogadorAtual = Cor.branca; //O jogo sempre começa pelas peças brancas
-            terminada = false;
-            xeque = false;
+            terminada = false; //A partira não estará terminada até retornar o método xeque mate
+            xeque = false; //O xeque começa como falso, até o método ser retornado
             pecas = new HashSet<Peca>();
             capturadas = new HashSet<Peca>();
             colocarPecas();
         }
 
+        //Método que executa o momovimento das peças
         public Pecas ExecutaMovimento(Posicao origem, Posicao destino) { //função que executa o movimento
             Pecas p = tab.removePeca(origem);
-            p.incrementarMovimentos();
-            Pecas pecaCapturada = tab.removePeca(destino);
+            p.incrementarMovimentos(); //incrementa os movimentos
+            Pecas pecaCapturada = tab.removePeca(destino); //remove peças capturadas do tabuleiro
             tab.colocarPeca(p, destino);
-            if(pecaCapturada != null) {
+            if(pecaCapturada != null) { 
                 capturadas.Add(pecaCapturada);
             }
             return pecasCapturadas;
 
         }
 
+        //Um jogoador não pode se colocar em xeque. Sua peça voltará ao destino
         public void desfazMovimento(Posicao origem, Posicao destino, Pecas capturada) {
             Peca p = tab.removePeca(destino);
             p.descrementarMovimentos();
@@ -115,6 +117,11 @@ namespace xadrez {
 
         public bool estaEmXeque(Cor cor) {
             Pecas R = rei(cor);
+
+            /**
+                Isso não pode acontecer no jogo! pois sempre precisa haver um rei. 
+                Coloquei esse teste só pra garantir caso haja alguma falha
+             */
             if(R == null) {
                 throw new TabuleiroException("Não tem rei da cor" + cor + "no tabuleiro");
             }

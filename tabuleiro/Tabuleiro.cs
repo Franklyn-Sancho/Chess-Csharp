@@ -13,11 +13,11 @@ namespace tabuleiro {
         }
 
         public Pecas pecas(int linha, int coluna) { //As peças recebem as posições da matriz linha e coluna
-            return pecas[linha, coluna];
+            return peca[linha, coluna];
         }
 
         public Pecas pecas(Position pos) {
-            return pieces[pos.linha, pos.coluna];
+            return peca[pos.linha, pos.coluna];
         }
 
         public bool existePeca(Posicao pos) {

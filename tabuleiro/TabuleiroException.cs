@@ -1,3 +1,5 @@
+//Classe para a criação das exceções do nosso projeto
+
 using System;
 
 namespace tabuleiro {

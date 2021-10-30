@@ -10,12 +10,14 @@ namespace xadrez
         {
 
         }
+
+        //A torre será representada no tabuleiro pela letra T
         public override string ToString()
         {
             return "T";
         }
 
-        public override bool[,] movimentosPossiveis() { //classe abstrata
+        public override bool[,] movimentosPossiveis() { 
             bool[,] mat = new bool[tab.linhas, tab.colunas];
 
             Posicao pos = new Posicao(0, 0);
