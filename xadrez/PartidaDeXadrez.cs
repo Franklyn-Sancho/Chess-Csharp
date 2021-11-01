@@ -12,6 +12,7 @@ namespace xadrez {
         private HashSet<Peca> pecas; //conjunto de peças
         private HashSet<Peca> capturadas; //conjunto de peças capturadas
         public bool xeque{get; private set;}
+        public Pecas vulneravelEnPassant {get; private set;}
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8,8); //recebe tabuleiro que tem uma matriz de 8 por 8
@@ -19,6 +20,7 @@ namespace xadrez {
             jogadorAtual = Cor.branca; //O jogo sempre começa pelas peças brancas
             terminada = false; //A partira não estará terminada até retornar o método xeque mate
             xeque = false; //O xeque começa como falso, até o método ser retornado
+            vulneravelEnPassant = null;
             pecas = new HashSet<Peca>();
             capturadas = new HashSet<Peca>();
             colocarPecas();
@@ -54,6 +56,21 @@ namespace xadrez {
                 tab.colocarPeca(T, destinoT);
             }
 
+            // #Jogada especial en passant
+            if(p is Peao) {
+                if (origem.coluna != destino.coluna && pecaCapturada == null) {
+                    Posicao posP; 
+                    if(p.cor == Cor.Branca) {
+                        posP = new Posicao(destino.linha + 1, destino.coluna);
+                    } else {
+                        posP = new Posicao(destino.linha - 1, destino.coluna);
+                    }
+                    pecaCapturada = tab.retirarPeca(posP);
+                    capturadas.add(pecaCapturada)
+                }
+            }
+
+
             return pecasCapturadas;
 
         }
@@ -87,6 +104,21 @@ namespace xadrez {
                 tab.colocarPeca(T, origemT);
             }
 
+            //jogada especial #en passant;
+            if(p is Peao) {
+                if(origem.coluna != destino.coluna pecaCapturada == vulneravelEnPassant) {
+                    Pecas peao = tab.retirarPeca(destino);
+                    Posicao posP;
+                    if(p.cor == Cor.Branca) {
+                        posP = new Posicao(3, destino.coluna);
+                    } else {
+                        posP = new Posicao(4, destino.coluna);
+                    }
+                    tab.colocarPeca(peao,posP)
+                }
+            }
+
+
 
             tab.colocarPeca(p, origem);
         }
@@ -109,6 +141,16 @@ namespace xadrez {
             } else {
                 turno++;
                 mudaJogador();
+            }
+
+            Pecas p = tab.peca(destino)
+
+            //En passant
+
+            if(p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2)) {
+                vulneravelEnPassant = p;
+            } else {
+                vulneravelEnPassant = null;
             }
         }
 
